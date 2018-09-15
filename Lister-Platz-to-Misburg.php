@@ -11,9 +11,6 @@ $LaMetricAbfahrten = new LaMetricAbfahrten(
 
 $LaMetricAbfahrten->setFrameIcon('#23070');
 
-$LaMetricAbfahrten->replace_in_output  = array(
-    array( '(U) ','Hannover, ', ', Hannover', 'STB' ),
-    array( '','', '', 'Stadtbahn ' )
-);
+
 
 echo $LaMetricAbfahrten->getLaMetricJSONResponse();
