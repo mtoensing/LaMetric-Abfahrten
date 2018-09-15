@@ -47,13 +47,14 @@ function getMaxUsers( $current_users ) {
 
 	$cached_day = intval( file_get_contents( $local_cache_file_day ) );
 
+	/* invalidate cache if it is the next day */
 	if($cached_day != $today){
 		file_put_contents( $local_cache_file_day, $today );
 		file_put_contents( $local_cache_file, '0' );
 	}
 
 	$cached_users_raw = intval( file_get_contents( $local_cache_file ) );
-	
+
 	if ( is_int( $cached_users_raw ) ) {
 		if ( $cached_users_raw < $current_users ) {
 			file_put_contents( $local_cache_file, $current_users );
