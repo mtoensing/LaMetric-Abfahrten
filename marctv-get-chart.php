@@ -21,19 +21,16 @@ function getResponse() {
 
 	$output = array(
 		"frames" => array(
-			[   "index" => 0,
-			    "text" => $current_users . ' (' . $max_users . ')',
-			    "icon" => "i23049"
+			[
+				"index" => 0,
+				"chartData" => $array_days
 			]
 		)
 	);
 
 	/**
 
-	,[
-	"index" => 1,
-	"chartData" => $array_days
-	]
+	,
 
 	 */
 
