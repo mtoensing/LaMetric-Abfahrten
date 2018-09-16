@@ -9,7 +9,7 @@ $LaMetricAbfahrten = new LaMetricAbfahrten(
     "Misburg, Hannover"
 );
 
-$LaMetricAbfahrten->setFrameIcon('#23070');
+$LaMetricAbfahrten->setFrameIcon('#23095');
 
 
 
