@@ -7,17 +7,26 @@
 
 function getResponse() {
 
-	$json          = file_get_contents( 'https://marc.tv/api/' );
+	$json          = file_get_contents( 'https://api.marc.tv/' );
+
+	$last7days_string = file_get_contents( 'https://api.marc.tv/last7days.php' );
+
 	$obj           = json_decode( $json );
-	$current_users = $obj->row->visits;
+	$current_users = $obj->row->visitors;
+
+	$array_days           = array_values(explode(',' , $last7days_string ));
+
 
 	$max_users = getMaxUsers( $current_users );
 
 	$output = array(
 		"frames" => array(
-			[
-				"text" => $current_users . ' (' . $max_users . ')',
-				"icon" => "i23049"
+			[   "index" => 0,
+			    "text" => $current_users . ' (' . $max_users . ')',
+			    "icon" => "i23049"
+			],[
+				"index" => 1,
+				"chartData" => $array_days
 			]
 		)
 	);
