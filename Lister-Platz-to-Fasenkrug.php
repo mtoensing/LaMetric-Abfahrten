@@ -6,9 +6,9 @@ spl_autoload_register( function ( $class_name ) {
 
 $LaMetricAbfahrten = new LaMetricAbfahrten(
     "Lister Platz (U), Hannover",
-    "Misburg, Hannover"
+    "Fasanenkrug, Hannover"
 );
 
-$LaMetricAbfahrten->setFrameIcon('i23135');
+$LaMetricAbfahrten->setFrameIcon('i23138');
 
 echo $LaMetricAbfahrten->getLaMetricJSONResponse();
