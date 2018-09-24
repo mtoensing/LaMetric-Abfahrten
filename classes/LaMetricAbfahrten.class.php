@@ -16,6 +16,22 @@ class LaMetricAbfahrten {
 	public $destination = '';
 	public $destination_only;
 	public $replace_in_output = '';
+	public $prefix = '';
+	public $postfix = ' Min';
+
+	/**
+	 * @param string $prefix
+	 */
+	public function setPrefix( $prefix ) {
+		$this->prefix = $prefix;
+	}
+
+	/**
+	 * @param string $postfix
+	 */
+	public function setPostfix( $postfix ) {
+		$this->postfix = $postfix;
+	}
 
 	public function __construct( $origin, $destination) {
 		$this->destination                = $destination;
@@ -55,9 +71,6 @@ class LaMetricAbfahrten {
 
 	public function getLaMetricJSONResponse() {
 
-		$title = $this->journeys[0]->origin . ' in Richtung ' . $this->destination;
-		$title = str_replace( $this->replace_in_output[0], $this->replace_in_output[1], $title );
-
 		$delay = '';
 
 		$frames = array();
@@ -66,10 +79,10 @@ class LaMetricAbfahrten {
 
 		foreach ( $this->journeys as $journey ) {
 
-			$text = $journey->getRealtime() . ' Min';
+			$text = $journey->getRealtime();
 
 			$frames[] = [
-				"text" => $text,
+				"text" => $this->prefix. $text . $this->postfix,
 				"icon" => $this->frame_icon
 
 			];
@@ -85,10 +98,12 @@ class LaMetricAbfahrten {
 			"frames" => $frames,
 		);
 
-		header( "Cache-Control: no-store, no-cache, must-revalidate, max-age=0" );
-		header( "Cache-Control: post-check=0, pre-check=0", false );
-		header( "Pragma: no-cache" );
-		header( "Content-type: application/json; charset=utf-8" );
+		if($this->debug != true) {
+			header( "Cache-Control: no-store, no-cache, must-revalidate, max-age=0" );
+			header( "Cache-Control: post-check=0, pre-check=0", false );
+			header( "Pragma: no-cache" );
+			header( "Content-type: application/json; charset=utf-8" );
+		}
 
 		$json = json_encode( $responseArray, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT );
 
