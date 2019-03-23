@@ -6,11 +6,25 @@ function getResponse() {
 	$current_users = $obj->row->visitors;
 	$max_users = getMaxUsers( $current_users );
 
-	$response = $current_users . '(' . $max_users . ')';
+	//$response = $current_users . '(' . $max_users . ')';
+	$response = $current_users . ' ' . getMCUsers();
 
 	return $response;
 }
 
+function getMCUsers() {
+	$json          = file_get_contents( 'https://mc.marc.tv/db/data.json' );
+	$array           = json_decode( $json );
+	$users_online = $array->server->players_online;
+
+	if($users_online >= 0){
+        return $users_online;
+    } else {
+	    return 'e';
+    }
+
+
+}
 
 function getMaxUsers( $current_users ) {
 	$filename         = 'marctvmaxusers.txt';
